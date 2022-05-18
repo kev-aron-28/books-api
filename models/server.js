@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const db = require('../database/connection');
+const helmet = require("helmet");
 
 class Server { 
 
@@ -8,23 +9,22 @@ class Server {
         this.port = 3000;
         this.app = express();
         this.paths = {
-            actor: '/api/actor',
-            category: '/api/category'
+            costumer: '/api/costumer',
         };
 
         this.middlewares();
         this.routes();
-        this.database()
+        this.database();
     }
 
     middlewares() {
-        this.app.use(cors())
+        this.app.use(cors());
+        this.app.use(helmet());
         this.app.use(express.json());
     }
 
     routes() {
-        this.app.use(this.paths.actor, require('../routes/actor'));
-        this.app.use(this.paths.category, require('../routes/category'))
+        this.app.use(this.paths.costumer, require('../routes/costumer'));
     }
 
     async database() {
