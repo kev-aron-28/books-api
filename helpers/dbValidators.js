@@ -1,6 +1,7 @@
 const Custumer = require('../models/customer');
 const emailExists = async (email) => {
-    const emailExist = await Custumer.findOne({ email });
+    console.log(email);
+    const emailExist = await Custumer.findOne({ where: { email }});
     if(emailExist) {
         throw new Error('Email already exists');
     }

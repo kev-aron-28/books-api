@@ -2,9 +2,9 @@ const { Router } = require("express");
 const { check } = require("express-validator");
 const router = Router();
 
-const { createCostumer } = require("../controllers/costumer");
-const { emailExists } = require("../helpers");
-const { validateFields } = require('../middlewares');
+const { createCustomer, updateCustomer } = require("../controllers/customer");
+const { emailExists, validateIdV4 } = require("../helpers");
+const { validateFields, validateJWT } = require('../middlewares');
 
 router.post(
     '/',
@@ -21,6 +21,18 @@ router.post(
         check('age').notEmpty(),
         validateFields
     ],
-    createCostumer
-  );
+    createCustomer
+);
+
+router.put('/:id',
+    [
+        validateJWT,
+        check('id').not().isEmpty(),
+        check('id').custom(validateIdV4),
+        validateFields
+    ],
+    updateCustomer
+);
+
+
 module.exports = router;

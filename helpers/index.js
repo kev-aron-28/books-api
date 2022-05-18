@@ -1,5 +1,8 @@
 const dbValidators = require('./dbValidators');
-
+const jwt = require('./jwt');
+const uuidValidator = require('./uuidValidator');
 module.exports = {
-    ...dbValidators
+    ...dbValidators,
+    ...jwt,
+    ...uuidValidator
 }

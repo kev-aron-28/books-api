@@ -31,7 +31,14 @@ const Customer = sequelize.define('customer', {
   },
   age: {
 	type: DataTypes.INTEGER,
-  }
+  },
 });
+
+Customer.prototype.toJSON =  function () {
+    var values = Object.assign({}, this.get());
+  
+    delete values.password;
+    return values;
+  }
 
 module.exports = Customer;
