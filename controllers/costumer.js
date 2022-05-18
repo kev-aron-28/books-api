@@ -1,5 +1,5 @@
 const bcryptjs = require("bcryptjs");
-const Customer = require("../models/costumer")
+const Customer = require("../models/customer")
 const { v4: uuidv4 } = require('uuid');
 
 const createCostumer = async (req, res) => {

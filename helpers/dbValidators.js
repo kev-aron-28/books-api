@@ -1,4 +1,4 @@
-const Custumer = require('../models/costumer');
+const Custumer = require('../models/customer');
 const emailExists = async (email) => {
     const emailExist = await Custumer.findOne({ email });
     if(emailExist) {

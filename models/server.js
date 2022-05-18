@@ -24,7 +24,7 @@ class Server {
     }
 
     routes() {
-        this.app.use(this.paths.costumer, require('../routes/costumer'));
+        this.app.use(this.paths.costumer, require('../routes/customer'));
     }
 
     async database() {
