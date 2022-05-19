@@ -3,11 +3,10 @@ const { check } = require("express-validator");
 const router = Router();
 
 const { createCustomer, updateCustomer } = require("../controllers/customer");
-const { emailExists, validateIdV4 } = require("../helpers");
+const { emailExists } = require("../helpers");
 const { validateFields, validateJWT } = require('../middlewares');
 
-router.post(
-    '/',
+router.post('/',
     [ 
         check('email').isString().notEmpty(),
         check('email').custom(emailExists),
@@ -28,11 +27,10 @@ router.put('/:id',
     [
         validateJWT,
         check('id').not().isEmpty(),
-        check('id').custom(validateIdV4),
+        check('id').isUUID(4),
         validateFields
     ],
     updateCustomer
 );
-
 
 module.exports = router;

@@ -2,18 +2,16 @@ const { Router } = require("express");
 const { check } = require("express-validator");
 const router = Router();
 
-const { createCustomer } = require("../controllers/customer");
 const { validateFields } = require('../middlewares');
+const { login } = require("../controllers/auth");
 
 router.post(
     '/login',
     [ 
         check('email').isString().notEmpty(),
-        check('password').isLength({
-            min: 6,
-        }),
+        check('password').isString().notEmpty(),
         validateFields
     ],
-    createCustomer
+    login
   );
 module.exports = router;

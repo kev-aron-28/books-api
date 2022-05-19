@@ -34,11 +34,11 @@ const Customer = sequelize.define('customer', {
   },
 });
 
-Customer.prototype.toJSON =  function () {
+Customer.prototype.toJSON = function () {
     var values = Object.assign({}, this.get());
   
     delete values.password;
     return values;
-  }
+}
 
 module.exports = Customer;

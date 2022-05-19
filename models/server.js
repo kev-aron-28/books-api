@@ -10,6 +10,8 @@ class Server {
         this.app = express();
         this.paths = {
             costumer: '/api/costumer',
+            auth: '/api/auth',
+            book: '/api/books'
         };
 
         this.middlewares();
@@ -25,6 +27,8 @@ class Server {
 
     routes() {
         this.app.use(this.paths.costumer, require('../routes/customer'));
+        this.app.use(this.paths.auth, require('../routes/auth'));
+        this.app.use(this.paths.book, require('../routes/book'));
     }
 
     async database() {

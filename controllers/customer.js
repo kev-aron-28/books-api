@@ -35,12 +35,36 @@ const createCustomer = async (req, res) => {
 }
 
 const updateCustomer = async (req, res) => {
-    res.json({ 
-        msg: 'Updating'
-    })
+    const { id } = req.params;
+    console.log(id);
+    const { customer_id, password, active, email, ...user } = req.body;
+    if(password) {
+        const salt = bcryptjs.genSaltSync();
+        user.password = bcryptjs.hashSync(password, salt);
+    }
+
+    try {
+        const userToUpdate = await Customer.findByPk(id);
+        const userDb = await userToUpdate.update(user);
+
+        if(!userToUpdate.active || !userToUpdate) {
+            return res.status(404).json({
+                msg: 'User not found'
+            })
+        }
+
+        return res.json({ 
+            userDb
+        })
+    } catch (error) {
+        return res.status(401).json({ 
+            msg: 'Oops! Something went wrong'
+        })
+    }
+
 }
 
 module.exports = {
     createCustomer,
-    updateCustomer
+    updateCustomer,
 }

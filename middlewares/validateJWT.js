@@ -9,7 +9,9 @@ const validateJWT = async (req, res, next) => {
 
     try {
         const { id } = jwt.verify(token, process.env.SECRETKEY_CUSTOMER);
-        const user = Customer.findOne({ where: { customer_id: id, active: true } });
+        const user = await Customer.findOne({ where: { customer_id: id, active: true }, attributes: {
+            exclude: ['password']
+        }});
         if(!user) {
             return res.status(404).json({ message: 'Could not find user' });
         }        
